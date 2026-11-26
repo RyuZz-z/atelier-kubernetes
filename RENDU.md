@@ -72,4 +72,4 @@
 
 ---
 
-**Score obtenu avec `./scripts/check.sh` :** ⚠️ À COMPLÉTER ... / 18
+**Score obtenu avec `./scripts/check.sh` :** 18 / 18
