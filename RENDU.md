@@ -45,9 +45,12 @@
 
 9. Sur quels nœuds se trouvent vos 3 réplicas ? Collez la sortie de `kubectl get pods -l app=site -o wide`.
    ```
-   ⚠️ À COLLER : sortie réelle de « kubectl get pods -l app=site -o wide »
+   NAME                    READY   STATUS    RESTARTS   AGE    IP          NODE               NOMINATED NODE   READINESS GATES
+   site-54dbc4f754-22fxc   1/1     Running   0          86s    10.42.1.9   k3d-lab-agent-1    <none>           <none>
+   site-54dbc4f754-gxw8s   1/1     Running   0          119s   10.42.0.5   k3d-lab-server-0   <none>           <none>
+   site-54dbc4f754-rpkr4   1/1     Running   0          96s    10.42.2.7   k3d-lab-agent-0    <none>           <none>
    ```
-   > Le scheduler répartit les réplicas sur les différents nœuds (agents et aussi le server, qui n'est pas « taint » dans k3s) pour équilibrer la charge et limiter l'impact de la perte d'un nœud.
+   > Un réplica par nœud : `k3d-lab-agent-0`, `k3d-lab-agent-1` et `k3d-lab-server-0`. Le scheduler répartit les pods sur les nœuds pour équilibrer la charge et limiter l'impact de la perte d'un nœud. Le control plane reçoit aussi un pod, car dans k3s le nœud server n'a pas de « taint » qui l'interdirait.
 10. Avec l'image `nginx:9.99`, quel statut avait le pod ? Quelle commande vous a donné la cause ?
     > Le nouveau pod restait en **`ErrImagePull`**, puis en **`ImagePullBackOff`** (READY `0/1`). La cause exacte apparaît avec **`kubectl describe pod -l app=site`**, dans la section *Events* en bas : `Failed to pull image "nginx:9.99" ... manifest for nginx:9.99 not found` (le tag n'existe pas sur Docker Hub).
 11. Pendant la panne, le site restait-il accessible ? Pourquoi ?
