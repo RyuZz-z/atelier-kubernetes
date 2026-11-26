@@ -59,7 +59,7 @@
 ## Exercice 6 — Portainer & Mario
 
 12. URL publique de votre Mario :
-    > ⚠️ À COMPLÉTER : `https://<nom-du-codespace>-8585.app.github.dev/`
+    > https://fictional-waddle-97jg4r64qgx92gxq-8585.app.github.dev/
 13. Retrouvez le Deployment `mario` en ligne de commande. Portainer et `kubectl` parlent-ils au même composant ? Lequel ?
     > Oui : `kubectl get deploy mario -o yaml` montre le Deployment créé depuis Portainer. C'est un Deployment Kubernetes standard, identique sur le fond à ceux créés en ligne de commande. Portainer ajoute seulement quelques labels et annotations à son nom (`io.portainer.kubernetes.application...`). Portainer et `kubectl` parlent tous les deux au **même composant : l'API Server** (kube-apiserver) du control plane. Portainer, qui tourne dans le cluster, l'appelle avec un ServiceAccount qui a les droits nécessaires. `kubectl` l'appelle avec le kubeconfig.
 
